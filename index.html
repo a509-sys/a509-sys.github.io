@@ -3,69 +3,262 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Моя визитка</title>
+  <title>pasta_bushido | Cheese Against The Macaroni</title>
   <style>
+    :root {
+      --bg: #090a0f;
+      --card-bg: rgba(22, 27, 34, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(255, 255, 255, 0.14);
+      --accent: #e6edf3;
+      --text-muted: #8b949e;
+      --highlight: #58a6ff;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #0d1117;
-      color: #e6edf3;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      background-image: radial-gradient(circle at 50% 0%, #161b22 0%, #090a0f 75%);
+      color: var(--accent);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 48px 16px;
-      min-height: 100vh;
+      padding: 56px 20px 80px;
     }
-    .card {
+
+    .container {
       width: 100%;
-      max-width: 460px;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header Profile */
+    .profile {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 18px;
-    }
-    .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      border: 2px solid #30363d;
-      object-fit: cover;
-    }
-    .name { font-size: 1.4rem; font-weight: 600; }
-    .bio { font-size: 0.95rem; color: #8b949e; text-align: center; margin-bottom: 8px; }
-    .links { width: 100%; display: flex; flex-direction: column; gap: 12px; }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px 18px;
-      background-color: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      color: #f0f6fc;
-      text-decoration: none;
-      font-weight: 500;
       text-align: center;
-      transition: all 0.2s ease;
+      gap: 12px;
+      margin-bottom: 8px;
     }
-    .btn:hover {
-      background-color: #1f242c;
-      border-color: #8b949e;
-      transform: translateY(-2px);
+
+    .avatar-wrapper {
+      position: relative;
+    }
+
+    .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      border: 2px solid var(--card-border);
+      object-fit: cover;
+      background-color: #161b22;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .handle {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 440px;
+    }
+
+    /* Bento Grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      background: rgba(30, 36, 46, 0.85);
+      border-color: var(--card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .card.full-width {
+      grid-column: span 2;
+    }
+
+    .icon-box {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .icon-box svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      overflow: hidden;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .arrow {
+      margin-left: auto;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover .arrow {
+      transform: translateX(3px);
+      color: var(--accent);
+    }
+
+    /* Music Banner Special */
+    .card-music {
+      background: linear-gradient(135deg, rgba(22, 27, 34, 0.9) 0%, rgba(33, 38, 45, 0.6) 100%);
+      border-color: rgba(88, 166, 255, 0.2);
+    }
+
+    .card-music:hover {
+      border-color: rgba(88, 166, 255, 0.45);
+    }
+
+    @media (max-width: 480px) {
+      .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .card.full-width {
+        grid-column: span 1;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <img class="avatar" src="https://github.com/identicons/app.png" alt="Avatar">
-    
-    <div class="name">Твое Имя / Ник</div>
-    <div class="bio">Краткое описание, профиль деятельности или статус</div>
 
-    <div class="links">
-      <a class="btn" href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
-      <a class="btn" href="https://x.com" target="_blank" rel="noopener">X (Twitter)</a>
-      <a class="btn" href="https://t.me" target="_blank" rel="noopener">Telegram</a>
-      <a class="btn" href="mailto:example@mail.com">Связаться по почте</a>
-    </div>
+  <div class="container">
+    <!-- Header -->
+    <header class="profile">
+      <div class="avatar-wrapper">
+        <img class="avatar" src="https://unavatar.io/x/pasta_bushido" alt="pasta_bushido" onerror="this.src='https://github.com/identicons/pasta.png'">
+      </div>
+      <h1 class="handle">@pasta_bushido</h1>
+      <p class="tagline">Амбассадор нулевых, конспирология, музыка и лайфстайл</p>
+    </header>
+
+    <!-- Bento Grid Links -->
+    <main class="bento-grid">
+      
+      <!-- Featured: Music Project -->
+      <a class="card full-width card-music" href="https://www.youtube.com/@pasta_bushido" target="_blank" rel="noopener">
+        <div class="icon-box" style="color: #ff0033;">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-title">Cheese Against The Macaroni</div>
+          <div class="card-desc">YouTube • Downtempo, lo-fi, электроника</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <!-- Telegram -->
+      <a class="card" href="https://t.me/pasta_bushido" target="_blank" rel="noopener">
+        <div class="icon-box" style="color: #229ED9;">
+          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-title">Telegram</div>
+          <div class="card-desc">Канал / Мысли</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <!-- X / Twitter -->
+      <a class="card" href="https://x.com/pasta_bushido" target="_blank" rel="noopener">
+        <div class="icon-box" style="color: #ffffff;">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-title">X (Twitter)</div>
+          <div class="card-desc">@pasta_bushido</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <!-- Threads -->
+      <a class="card" href="https://threads.net/@pasta_bushido" target="_blank" rel="noopener">
+        <div class="icon-box" style="color: #ffffff;">
+          <svg viewBox="0 0 24 24"><path d="M12.186 24C5.46 24 0 18.54 0 11.814 0 5.088 5.46 0 12.186 0c6.726 0 12.186 5.088 12.186 11.814 0 2.217-.616 4.316-1.74 6.104l-2.074-1.282a9.71 9.71 0 0 0 1.38-4.822c0-5.394-4.364-9.38-9.752-9.38-5.388 0-9.752 4.364-9.752 9.758 0 5.394 4.364 9.758 9.752 9.758 3.513 0 6.643-1.854 8.225-4.73l2.093 1.251C20.307 22.015 16.48 24 12.186 24z"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-title">Threads</div>
+          <div class="card-desc">Заметки и треды</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <!-- Sound / Streaming -->
+      <a class="card" href="https://soundcloud.com" target="_blank" rel="noopener">
+        <div class="icon-box" style="color: #ff5500;">
+          <svg viewBox="0 0 24 24"><path d="M1.175 12.225c-.051 0-.094.044-.102.102l-.248 2.373.248 2.336c.008.058.051.102.102.102.059 0 .102-.044.11-.102l.284-2.336-.284-2.373a.105.105 0 0 0-.11-.102zm1.093-.831c-.066 0-.117.051-.124.117l-.27 3.205.27 3.167c.007.066.058.117.124.117.066 0 .117-.051.124-.117l.307-3.167-.307-3.205a.127.127 0 0 0-.124-.117zm1.19-.364c-.073 0-.131.058-.139.131l-.262 3.569.262 3.533c.008.073.066.131.139.131.073 0 .131-.058.139-.131l.306-3.533-.306-3.569a.144.144 0 0 0-.139-.131zm2.394-.372c-.095 0-.175.08-.182.175l-.234 4.095.234 4.066c.007.095.087.175.182.175s.175-.08.182-.175l.277-4.066-.277-4.095a.187.187 0 0 0-.182-.175zm-1.204.226c-.08 0-.146.066-.153.146l-.255 3.869.255 3.832c.007.08.073.146.153.146s.146-.066.153-.146l.292-3.832-.292-3.869a.156.156 0 0 0-.153-.146zm3.598-.102c-.109 0-.204.095-.211.204l-.204 4.212.204 4.182c.007.109.102.204.211.204.11 0 .204-.095.212-.204l.248-4.182-.248-4.212a.222.222 0 0 0-.212-.204zm1.204-.379c-.124 0-.226.102-.233.226l-.175 4.591.175 4.562c.007.124.109.226.233.226.124 0 .226-.102.233-.226l.219-4.562-.219-4.591a.24.24 0 0 0-.233-.226zm10.744 2.219c-.321 0-.627.058-.912.161-.394-2.292-2.394-4.036-4.795-4.036-.788 0-1.533.19-2.19.526-.248.131-.336.211-.336.437v9.431c0 .248.204.453.453.453h7.78c1.781 0 3.226-1.445 3.226-3.226 0-1.781-1.445-3.226-3.226-3.226z"/></svg>
+        </div>
+        <div class="card-info">
+          <div class="card-title">Стриминги</div>
+          <div class="card-desc">SoundCloud / Релизы</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+    </main>
   </div>
+
 </body>
 </html>
